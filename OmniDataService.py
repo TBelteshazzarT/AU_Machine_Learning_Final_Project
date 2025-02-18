@@ -1,4 +1,6 @@
 import urllib.request
+import urllib.error
+import urllib.parse
 import pandas as pd
 import numpy as np
 from pandas.core.interchange.dataframe_protocol import DataFrame
@@ -173,17 +175,29 @@ del high_res_1_flag[-3]
 
 
 def read_dat_from_url(url):
-    """Reads from a .dat file from a url and returns a string"""
+    """
+    Reads from a .dat file from a URL and returns a string.
+    Compatible with both Windows and macOS.
+
+    :param url: The URL of the .dat file to read.
+    :return: A string containing the file's content, or an error message if the request fails.
+    """
     try:
-        with urllib.request.urlopen(url) as response:
+        # Ensure the URL is properly encoded (useful for handling special characters)
+        encoded_url = urllib.parse.quote(url, safe=':/')
+
+        # Open the URL and read the data
+        with urllib.request.urlopen(encoded_url) as response:
+            # Decode the response data using UTF-8
             data = response.read().decode('utf-8')
+
         return data
     except urllib.error.URLError as e:
         return f"Error opening URL: {e}"
     except Exception as e:
         return f"An error occurred: {e}"
 
-def get_omni_data(res='low', rate=None, year_range=(1963, 2025), file_name='OmniData.csv'):
+def get_omni_data(res='low', rate=None, year_range=(1963, 2025), flag_replace=False, file_name='OmniData.csv'):
     """
     Creates a pandas dataframe from the low-res or high-res omini datasets from nasa
 
@@ -191,6 +205,7 @@ def get_omni_data(res='low', rate=None, year_range=(1963, 2025), file_name='Omni
     :param rate: for high-res indicate 5min or 1min sample rate. Leave blank for low-res.
     :param year_range: tuple containing first year to include and last year to include. For single year, enter the year
      as first and second item in tuple.
+     :param flag_replace: False returns the raw data. True auto replaces flag values with NaN
     :param file_name: str of the name of csv that is saved e.g.'OmniData.csv'
     :return: a pandas dataframe
     """
@@ -210,8 +225,11 @@ def get_omni_data(res='low', rate=None, year_range=(1963, 2025), file_name='Omni
             df = string_to_df(dat_content, column_name_set)
             df = df[df['Year'].isin(years_str)]
             df_type_corrected = type_correct_and_save(df, file_name)
-            df_flagged = replace_flag_values_with_nan(df_type_corrected, low_res_flag)
-            return type_correct_and_save(df_flagged, file_name)
+            if flag_replace:
+                df_flagged = replace_flag_values_with_nan(df_type_corrected, low_res_flag)
+                return type_correct_and_save(df_flagged, file_name)
+            else:
+                return df_type_corrected
         else:
             print('Database not reached. Trying backup...')
             dat_content = read_dat_from_url((wayback_base + url_set))
@@ -221,8 +239,11 @@ def get_omni_data(res='low', rate=None, year_range=(1963, 2025), file_name='Omni
                 df = string_to_df(dat_content, column_name_set)
                 df = df[df['Year'].isin(years_str)]
                 df_type_corrected = type_correct_and_save(df, file_name)
-                df_flagged = replace_flag_values_with_nan(df_type_corrected, low_res_flag)
-                return type_correct_and_save(df_flagged, file_name)
+                if flag_replace:
+                    df_flagged = replace_flag_values_with_nan(df_type_corrected, low_res_flag)
+                    return type_correct_and_save(df_flagged, file_name)
+                else:
+                    return df_type_corrected
             else:
                 print(dat_content)
 
@@ -237,26 +258,30 @@ def get_omni_data(res='low', rate=None, year_range=(1963, 2025), file_name='Omni
         if rate is None or rate == '5min':
             url_base = omni_5min_base
             flag = high_res_5_flag
-            print(rate)
         elif rate == '1min':
             url_base = omni_1min_base
             flag = high_res_1_flag
-            print(rate)
         else:
             print('Incorrect format for rate entry. See documentation.')
         df = multi_url_read_to_df(num_of_years, url_base, start_yr, column_name_set)
         if "Error" not in df:
             df_type_corrected = type_correct_and_save(df, file_name)
-            df_flagged = replace_flag_values_with_nan(df_type_corrected, flag)
-            return type_correct_and_save(df_flagged, file_name)
+            if flag_replace:
+                df_flagged = replace_flag_values_with_nan(df_type_corrected, low_res_flag)
+                return type_correct_and_save(df_flagged, file_name)
+            else:
+                return df_type_corrected
         else:
             print('Database not reached. Trying backup...')
             df = multi_url_read_to_df(num_of_years, (wayback_base + url_base), start_yr, column_name_set)
             if "Error" not in df:
                 print('Backup successful')
                 df_type_corrected = type_correct_and_save(df, file_name)
-                df_flagged = replace_flag_values_with_nan(df_type_corrected, flag)
-                return type_correct_and_save(df_flagged, file_name)
+                if flag_replace:
+                    df_flagged = replace_flag_values_with_nan(df_type_corrected, low_res_flag)
+                    return type_correct_and_save(df_flagged, file_name)
+                else:
+                    return df_type_corrected
             else:
                 return None
 
@@ -352,13 +377,9 @@ def replace_flag_values_with_nan(df, flag_values):
     for col_index, flag_value in enumerate(flag_values):
         # Check if the column index is valid and the flag value is not None
         if col_index < len(df_cleaned.columns) and flag_value is not None:
-            # Convert the column to string and strip whitespace (to handle formatting issues)
-            col_data = df_cleaned.iloc[:, col_index].astype(str).str.strip()
-            # Convert the flag value to a string with consistent decimal places
-            flag_value_str = f"{float(flag_value):.2f}"  # Ensure 2 decimal places
+            # Convert the column to numeric (float) to ensure proper comparison
+            col_data = pd.to_numeric(df_cleaned.iloc[:, col_index], errors='coerce')
             # Replace the flag value with np.nan in the corresponding column
-            col_data_replaced = col_data.replace(flag_value_str, np.nan)
-            # Convert the column to numeric (float) to avoid dtype warnings
-            df_cleaned.iloc[:, col_index] = pd.to_numeric(col_data_replaced, errors='coerce')
+            df_cleaned.iloc[:, col_index] = col_data.replace(flag_value, np.nan)
 
     return df_cleaned
