@@ -34,61 +34,61 @@ low_res_columns = ['Year', 'Decimal Day', 'Hour', 'Bartels rotation number', 'ID
              'Magnetosonic mach number']
 # low res flag list
 low_res_flag = [
-    None,          # Column 1: Year (no fill value)
-    None,          # Column 2: Decimal Day (no fill value)
-    None,          # Column 3: Hour (no fill value)
-    9999,          # Column 4: Bartels rotation number
-    99,            # Column 5: ID for IMF spacecraft
-    99,            # Column 6: ID for SW plasma spacecraft
-    999,           # Column 7: # of points in the IMF averages
-    999,           # Column 8: # of points in the plasma averages
-    999.9,         # Column 9: Field Magnitude Average |B|
-    999.9,         # Column 10: Magnitude of Average Field Vector
-    999.9,         # Column 11: Lat. Angle of Aver. Field Vector
-    999.9,         # Column 12: Long. Angle of Aver. Field Vector
-    999.9,         # Column 13: Bx GSE, GSM
-    999.9,         # Column 14: By GSE
-    999.9,         # Column 15: Bz GSE
-    999.9,         # Column 16: By GSM
-    999.9,         # Column 17: Bz GSM
-    999.9,         # Column 18: sigma|B|
-    999.9,         # Column 19: sigma B
-    999.9,         # Column 20: sigma Bx
-    999.9,         # Column 21: sigma By
-    999.9,         # Column 22: sigma Bz
-    9999999.0,     # Column 23: Proton temperature
-    999.9,         # Column 24: Proton Density
-    9999.0,        # Column 25: Plasma (Flow) speed
-    999.9,         # Column 26: Plasma Flow Long. Angle
-    999.9,         # Column 27: Plasma Flow Lat. Angle
-    9.999,         # Column 28: Na/Np (Alpha/Proton ratio)
-    99.99,         # Column 29: Flow Pressure
-    9999999.0,     # Column 30: sigma T
-    999.9,         # Column 31: sigma N
-    9999.0,        # Column 32: sigma V
-    999.9,         # Column 33: sigma phi V
-    999.9,         # Column 34: sigma theta V
-    9.999,         # Column 35: sigma-Na/Np
-    999.99,        # Column 36: Electric field
-    999.99,        # Column 37: Plasma beta
-    999.9,         # Column 38: Alfven mach number
-    99,            # Column 39: Kp
-    999,           # Column 40: Sunspot number (new version 2)
-    99999,         # Column 41: DST Index
-    9999,          # Column 42: AE-index
-    999999.99,     # Column 43: Proton flux (>1 Mev)
-    99999.99,      # Column 44: Proton flux (>2 Mev)
-    99999.99,      # Column 45: Proton flux (>4 Mev)
-    99999.99,      # Column 46: Proton flux (>10 Mev)
-    99999.99,      # Column 47: Proton flux (>30 Mev)
-    99999.99,      # Column 48: Proton flux (>60 Mev)
-    0,             # Column 49: Flag
-    999,           # Column 50: ap-index
-    999.9,         # Column 51: f10.7_index
-    999.9,         # Column 52: PC(N) index
-    99999,         # Column 53: AL-index
-    99999,         # Column 54: AU-index
-    99.9           # Column 55: Magnetosonic mach number
+    None,            # Column 1: Year (no fill value)
+    None,            # Column 2: Decimal Day (no fill value)
+    None,            # Column 3: Hour (no fill value)
+    '9999',          # Column 4: Bartels rotation number
+    '99',            # Column 5: ID for IMF spacecraft
+    '99',            # Column 6: ID for SW plasma spacecraft
+    '999',           # Column 7: # of points in the IMF averages
+    '999',           # Column 8: # of points in the plasma averages
+    '999.9',         # Column 9: Field Magnitude Average |B|
+    '999.9',         # Column 10: Magnitude of Average Field Vector
+    '999.9',         # Column 11: Lat. Angle of Aver. Field Vector
+    '999.9',         # Column 12: Long. Angle of Aver. Field Vector
+    '999.9',         # Column 13: Bx GSE, GSM
+    '999.9',         # Column 14: By GSE
+    '999.9',         # Column 15: Bz GSE
+    '999.9',         # Column 16: By GSM
+    '999.9',         # Column 17: Bz GSM
+    '999.9',         # Column 18: sigma|B|
+    '999.9',         # Column 19: sigma B
+    '999.9',         # Column 20: sigma Bx
+    '999.9',         # Column 21: sigma By
+    '999.9',         # Column 22: sigma Bz
+    '9999999.',      # Column 23: Proton temperature
+    '999.9',         # Column 24: Proton Density
+    '9999.',          # Column 25: Plasma (Flow) speed
+    '999.9',         # Column 26: Plasma Flow Long. Angle
+    '999.9',         # Column 27: Plasma Flow Lat. Angle
+    '9.999',         # Column 28: Na/Np (Alpha/Proton ratio)
+    '99.99',         # Column 29: Flow Pressure
+    '9999999.',       # Column 30: sigma T
+    '999.9',         # Column 31: sigma N
+    '9999.',          # Column 32: sigma V
+    '999.9',         # Column 33: sigma phi V
+    '999.9',         # Column 34: sigma theta V
+    '9.999',         # Column 35: sigma-Na/Np
+    '999.99',        # Column 36: Electric field
+    '999.99',        # Column 37: Plasma beta
+    '999.9',         # Column 38: Alfven mach number
+    '99',            # Column 39: Kp
+    '999',           # Column 40: Sunspot number (new version 2)
+    '99999',         # Column 41: DST Index
+    '9999',          # Column 42: AE-index
+    '999999.99',     # Column 43: Proton flux (>1 Mev)
+    '99999.99',      # Column 44: Proton flux (>2 Mev)
+    '99999.99',      # Column 45: Proton flux (>4 Mev)
+    '99999.99',      # Column 46: Proton flux (>10 Mev)
+    '99999.99',      # Column 47: Proton flux (>30 Mev)
+    '99999.99',      # Column 48: Proton flux (>60 Mev)
+    '0',             # Column 49: Flag
+    '999',           # Column 50: ap-index
+    '999.9',         # Column 51: f10.7_index
+    '999.9',         # Column 52: PC(N) index
+    '99999',         # Column 53: AL-index
+    '99999',         # Column 54: AU-index
+    '99.9'           # Column 55: Magnetosonic mach number
 ]
 # high res column lists
 high_res_5_columns = ['Year','Day', 'Hour', 'Minute', 'ID for IMF spacecraft', 'ID for SW Plasma spacecraft',
@@ -106,55 +106,55 @@ high_res_5_columns = ['Year','Day', 'Hour', 'Minute', 'ID for IMF spacecraft', '
                     'Proton Flux >60 MeV, 1/(cm**2-sec-ster)']
 
 high_res_5_flag = [
-    None,       #Year
-    None,       #Day
-    None,       #Hour
-    None,       #Minute
-    99.00,      #ID for IMF spacecraft
-    99.00,      #ID for SW Plasma spacecraft
-    999.00,     # of points in IMF averages
-    999.00,     # of points in Plasma averages\tI4
-    999.00,     #Percent interp
-    999999.00,  #Timeshift, sec
-    999999.00,  #RMS, Timeshift
-    99.99,      #RMS, Phase front normal
-    999999.00,  #Time btwn observations, sec
-    9999.99,    #Field magnitude average, nT
-    9999.99,    #Bx, nT (GSE, GSM)
-    9999.99,    #By, nT (GSE)
-    9999.99,    #Bz, nT (GSE)
-    9999.99,    #By, nT (GSM)
-    9999.99,    #Bz, nT (GSM)
-    9999.99,    #RMS SD B scalar, nT
-    9999.99,    #RMS SD field vector, nT
-    99999.90,   #Flow speed, km/s
-    99999.90,   #Vx Velocity, km/s, GSE
-    99999.90,   #Vy Velocity, km/s, GSE
-    99999.90,   #Vz Velocity, km/s, GSE
-    999.99,     #Proton Density, n/cc
-    9999999.00, #Temperature, K
-    99.99,      #Flow pressure, nPa
-    999.99,     #Electric field, mV/m
-    999.99,     #Plasma beta
-    999.90,     #Alfven mach number
-    9999.99,    #X(s/c), GSE, Re
-    9999.99,    #Y(s/c), GSE, Re
-    9999.99,    #Z(s/c), GSE, Re
-    9999.99,    #BSN location, Xgse, Re
-    9999.99,    #BSN location, Ygse, Re
-    9999.99,    #BSN location, Zgse, Re
-    99999.00,   #AE-index, nT
-    99999.00,   #AL-index, nT
-    99999.00,   #AU-index, nT
-    -2.00,      #SYM/D index, nT
-    -13.00,     #SYM/H index, nT
-    17.00,      #ASY/D index, nT
-    16.00,      #ASY/H index, nT
-    999.99,     #PC(N) index
-    99.90,      #Magnetosonic mach number
-    99999.99,   #Proton Flux >10 MeV, 1/(cm**2-sec-ster)
-    99999.99,   #Proton Flux >30 MeV, 1/(cm**2-sec-ster)
-    99999.99    #Proton Flux >60 MeV, 1/(cm**2-sec-ster)
+    None,         #col1 Year
+    None,         #col2 Day
+    None,         #col3 Hour
+    None,         #col4 Minute
+    '99',  #ID for IMF spacecraft
+    '99',  #ID for SW Plasma spacecraft
+    '999',  ## of points in IMF averages
+    '999',  ## of points in Plasma averages	I4
+    '999',  #Percent interp
+    '999999',  #Timeshift, sec
+    '999999',  #RMS, Timeshift
+    '99.99',  #RMS, Phase front normal
+    '999999',  #Time btwn observations, sec
+    '9999.99',  #Field magnitude average, nT
+    '9999.99',  #Bx, nT (GSE, GSM)
+    '9999.99',  #By, nT (GSE)
+    '9999.99',  #Bz, nT (GSE)
+    '9999.99',  #By, nT (GSM)
+    '9999.99',  #Bz, nT (GSM)
+    '9999.99',  #RMS SD B scalar, nT
+    '9999.99',  #RMS SD field vector, nT
+    '99999.9',  #Flow speed, km/s
+    '99999.9',  #Vx Velocity, km/s, GSE
+    '99999.9',  #Vy Velocity, km/s, GSE
+    '99999.9',  #Vz Velocity, km/s, GSE
+    '999.99',  #Proton Density, n/cc
+    '9999999.',  #Temperature, K
+    '99.99',  #Flow pressure, nPa
+    '999.99',  #Electric field, mV/m
+    '999.99',  #Plasma beta
+    '999.9',  #Alfven mach number
+    '9999.99',  #X(s/c), GSE, Re
+    '9999.99',  #Y(s/c), GSE, Re
+    '9999.99',  #Z(s/c), GSE, Re
+    '9999.99',  #BSN location, Xgse, Re
+    '9999.99',  #BSN location, Ygse, Re
+    '9999.99',  #BSN location, Zgse, Re
+    '99999',     #AE-index, nT
+    '99999',     #AL-index, nT
+    '99999',     #AU-index, nT
+    '99999',     #SYM/D index, nT
+    '99999',     #SYM/H index, nT
+    '99999',     #ASY/D index, nT
+    '99999',     #ASY/H index, nT
+    '999.99',    #PC(N) index
+    '99.9',      #Magnetosonic mach number
+    '99999.99',  #Proton Flux >10 MeV, 1/(cm**2-sec-ster)
+    '99999.99',  #Proton Flux >30 MeV, 1/(cm**2-sec-ster)
+    '99999.99',    #Proton Flux >60 MeV, 1/(cm**2-sec-ster)
 ]
 
 high_res_min_columns = ['Year','Day', 'Hour', 'Minute', 'ID for IMF spacecraft', 'ID for SW Plasma spacecraft',
@@ -169,9 +169,11 @@ high_res_min_columns = ['Year','Day', 'Hour', 'Minute', 'ID for IMF spacecraft',
                     'AE-index, nT', 'AL-index, nT', 'AU-index, nT', 'SYM/D index, nT', 'SYM/H index, nT',
                     'ASY/D index, nT', 'ASY/H index, nT', 'PC(N) index', 'Magnetosonic mach number']
 
-high_res_1_flag = high_res_5_flag
+high_res_1_flag = high_res_5_flag.copy()
 # trim last 3 columns
-del high_res_1_flag[-3]
+del high_res_1_flag[-1]
+del high_res_1_flag[-1]
+del high_res_1_flag[-1]
 
 
 def read_dat_from_url(url):
@@ -224,12 +226,11 @@ def get_omni_data(res='low', rate=None, year_range=(1963, 2025), flag_replace=Fa
             # Process the data
             df = string_to_df(dat_content, column_name_set)
             df = df[df['Year'].isin(years_str)]
-            df_type_corrected = type_correct_and_save(df, file_name)
             if flag_replace:
-                df_flagged = replace_flag_values_with_nan(df_type_corrected, low_res_flag)
-                return type_correct_and_save(df_flagged, file_name)
-            else:
-                return df_type_corrected
+                df = replace_flag_values_with_nan(df, low_res_flag)
+            df_type_corrected = type_correct_and_save(df, file_name)
+            return df_type_corrected
+
         else:
             print('Database not reached. Trying backup...')
             dat_content = read_dat_from_url((wayback_base + url_set))
@@ -261,27 +262,25 @@ def get_omni_data(res='low', rate=None, year_range=(1963, 2025), flag_replace=Fa
         elif rate == '1min':
             url_base = omni_1min_base
             flag = high_res_1_flag
+            column_name_set = high_res_min_columns
         else:
             print('Incorrect format for rate entry. See documentation.')
         df = multi_url_read_to_df(num_of_years, url_base, start_yr, column_name_set)
         if "Error" not in df:
-            df_type_corrected = type_correct_and_save(df, file_name)
             if flag_replace:
-                df_flagged = replace_flag_values_with_nan(df_type_corrected, low_res_flag)
-                return type_correct_and_save(df_flagged, file_name)
-            else:
-                return df_type_corrected
+                df = replace_flag_values_with_nan(df, flag)
+            df_type_corrected = type_correct_and_save(df, file_name)
+            return df_type_corrected
+
         else:
             print('Database not reached. Trying backup...')
             df = multi_url_read_to_df(num_of_years, (wayback_base + url_base), start_yr, column_name_set)
             if "Error" not in df:
                 print('Backup successful')
-                df_type_corrected = type_correct_and_save(df, file_name)
                 if flag_replace:
-                    df_flagged = replace_flag_values_with_nan(df_type_corrected, low_res_flag)
-                    return type_correct_and_save(df_flagged, file_name)
-                else:
-                    return df_type_corrected
+                    df = replace_flag_values_with_nan(df, flag)
+                df_type_corrected = type_correct_and_save(df, file_name)
+                return df_type_corrected
             else:
                 return None
 
@@ -359,10 +358,10 @@ def type_correct_and_save(df, name):
 def replace_flag_values_with_nan(df, flag_values):
     """
     Replaces all occurrences of flag values in the DataFrame with np.nan.
-    Handles flag values with multiple zeros after the decimal place.
+    Handles flag values as strings and compares them directly with the DataFrame values.
 
     Parameters:
-    df (pd.DataFrame): Input DataFrame.
+    df (pd.DataFrame): Input DataFrame consisting of all strings.
     flag_values (list): List of flag values. The index of the list corresponds to the column index in the DataFrame.
 
     Returns:
@@ -377,9 +376,7 @@ def replace_flag_values_with_nan(df, flag_values):
     for col_index, flag_value in enumerate(flag_values):
         # Check if the column index is valid and the flag value is not None
         if col_index < len(df_cleaned.columns) and flag_value is not None:
-            # Convert the column to numeric (float) to ensure proper comparison
-            col_data = pd.to_numeric(df_cleaned.iloc[:, col_index], errors='coerce')
             # Replace the flag value with np.nan in the corresponding column
-            df_cleaned.iloc[:, col_index] = col_data.replace(flag_value, np.nan)
+            df_cleaned.iloc[:, col_index] = df_cleaned.iloc[:, col_index].replace(flag_value, np.nan)
 
     return df_cleaned
