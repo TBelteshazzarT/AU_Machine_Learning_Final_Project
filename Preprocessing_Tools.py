@@ -15,7 +15,13 @@ def load_data(name='data.csv', years=(0,2025)):
     if os.path.exists(name):
         # Load base dataset
         print(f"The file '{name}' exists. Loading DataFrame...")
-        data = pd.read_csv(name)
+        data = pd.read_csv(name, index_col=0, parse_dates=True)
+
+        # Ensure index is datetime
+        if not isinstance(data.index, pd.DatetimeIndex):
+            print("Converting index to DatetimeIndex...")
+            data.index = pd.to_datetime(data.index)
+
         return data
     else:
         # Generate the data set used in the paper
@@ -28,7 +34,6 @@ def create_dataset(name='data.csv', years=(0,2025)):
     # creates as csv of the DataFrame that is loaded into the variable 'data'
     start, end = years
     data = get(res='low', year_range=(start, end), flag_replace=True,  file_name=name)
-    print(data.head())
 
     # trim data to desired fields
     filtered_data = data[['Year', 'Decimal Day', 'Hour', 'Field Magnitude Average |B|', 'Proton temperature',
@@ -37,7 +42,7 @@ def create_dataset(name='data.csv', years=(0,2025)):
 
     # resample the data on hour 0
     resampled_data = filtered_data[filtered_data['Hour'].isin([0])]
-    resampled_data.to_csv('resampled.csv', index=False)
+    resampled_data.to_csv(name, index=False)
     # drop hourly data
     data = data.drop('Hour', axis=1)
 
