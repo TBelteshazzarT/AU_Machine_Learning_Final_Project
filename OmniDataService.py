@@ -3,7 +3,6 @@ import urllib.error
 import urllib.parse
 import pandas as pd
 import numpy as np
-from pandas.core.interchange.dataframe_protocol import DataFrame
 import warnings
 
 """
@@ -201,86 +200,76 @@ def read_dat_from_url(url):
 
 def get_omni_data(res='low', rate=None, year_range=(1963, 2025), flag_replace=False, file_name='OmniData.csv'):
     """
-    Creates a pandas dataframe from the low-res or high-res omini datasets from nasa
+    Creates a pandas dataframe from the low-res or high-res omni datasets from NASA.
 
     :param res: choose between high and low res.
     :param rate: for high-res indicate 5min or 1min sample rate. Leave blank for low-res.
     :param year_range: tuple containing first year to include and last year to include. For single year, enter the year
      as first and second item in tuple.
-     :param flag_replace: False returns the raw data. True auto replaces flag values with NaN
+    :param flag_replace: False returns the raw data. True auto replaces flag values with NaN
     :param file_name: str of the name of csv that is saved e.g.'OmniData.csv'
     :return: a pandas dataframe
     """
-    if res == 'low':
-        start_yr, end_yr = year_range
-        if start_yr < 1963:
-            start_yr = 1963
-        if end_yr > 2025:
-            end_yr = 2025
+    def adjust_year_range(start_yr, end_yr, min_year, max_year):
+        """Adjust the year range to be within the valid bounds."""
+        return max(start_yr, min_year), min(end_yr, max_year)
+
+    def process_data(df, column_names, flag_values, flag_replace, file_name):
+        """Process the dataframe by filtering, replacing flags, and saving to CSV."""
+        if flag_replace:
+            df = replace_flag_values_with_nan(df, flag_values)
+        return type_correct_and_save(df, file_name)
+
+    def fetch_and_process_data(url, column_names, flag_values, flag_replace, file_name, year_range, min_year, max_year):
+        """Fetch data from URL, process it, and return the resulting dataframe."""
+        start_yr, end_yr = adjust_year_range(year_range[0], year_range[1], min_year, max_year)
         years = list(range(start_yr, end_yr + 1))
         years_str = [str(x) for x in years]
-        url_set = omni2_all_yrs_url
-        column_name_set = low_res_columns
-        dat_content = read_dat_from_url(url_set)
+        dat_content = read_dat_from_url(url)
         if "Error" not in dat_content:
-            # Process the data
-            df = string_to_df(dat_content, column_name_set)
+            df = string_to_df(dat_content, column_names)
             df = df[df['Year'].isin(years_str)]
-            if flag_replace:
-                df = replace_flag_values_with_nan(df, low_res_flag)
-            df_type_corrected = type_correct_and_save(df, file_name)
-            return df_type_corrected
-
+            return process_data(df, column_names, flag_values, flag_replace, file_name)
         else:
             print('Database not reached. Trying backup...')
-            dat_content = read_dat_from_url((wayback_base + url_set))
+            dat_content = read_dat_from_url((wayback_base + url))
             if "Error" not in dat_content:
                 print('Backup successful')
-                # Process the data
-                df = string_to_df(dat_content, column_name_set)
+                df = string_to_df(dat_content, column_names)
                 df = df[df['Year'].isin(years_str)]
-                df_type_corrected = type_correct_and_save(df, file_name)
-                if flag_replace:
-                    df_flagged = replace_flag_values_with_nan(df_type_corrected, low_res_flag)
-                    return type_correct_and_save(df_flagged, file_name)
-                else:
-                    return df_type_corrected
+                return process_data(df, column_names, flag_values, flag_replace, file_name)
             else:
                 print(dat_content)
+                return None
 
+    if res == 'low':
+        return fetch_and_process_data(
+            omni2_all_yrs_url, low_res_columns, low_res_flag, flag_replace, file_name, year_range, 1963, 2025
+        )
     elif res == 'high':
-        start_yr, end_yr = year_range
-        if start_yr < 1981:
-            start_yr = 1981
-        if end_yr > 2025:
-            end_yr = 2025
+        start_yr, end_yr = adjust_year_range(year_range[0], year_range[1], 1981, 2025)
         num_of_years = end_yr - start_yr
-        column_name_set = high_res_5_columns
         if rate is None or rate == '5min':
             url_base = omni_5min_base
             flag = high_res_5_flag
+            column_name_set = high_res_5_columns
         elif rate == '1min':
             url_base = omni_1min_base
             flag = high_res_1_flag
             column_name_set = high_res_min_columns
         else:
             print('Incorrect format for rate entry. See documentation.')
+            return None
+
         df = multi_url_read_to_df(num_of_years, url_base, start_yr, column_name_set)
         if "Error" not in df:
-            if flag_replace:
-                df = replace_flag_values_with_nan(df, flag)
-            df_type_corrected = type_correct_and_save(df, file_name)
-            return df_type_corrected
-
+            return process_data(df, column_name_set, flag, flag_replace, file_name)
         else:
             print('Database not reached. Trying backup...')
             df = multi_url_read_to_df(num_of_years, (wayback_base + url_base), start_yr, column_name_set)
             if "Error" not in df:
                 print('Backup successful')
-                if flag_replace:
-                    df = replace_flag_values_with_nan(df, flag)
-                df_type_corrected = type_correct_and_save(df, file_name)
-                return df_type_corrected
+                return process_data(df, column_name_set, flag, flag_replace, file_name)
             else:
                 return None
 
