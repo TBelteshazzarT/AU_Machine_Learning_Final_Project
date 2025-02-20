@@ -8,4 +8,6 @@ Overview of Project Layout
 
 Note: Since it is a group project we can and should copy ideas and code chunks from each other. Please make sure to name your files appropriately so that everyone can tell by the file what the script does (data manipulation, model generation, etc.). An example might be data_prep.py. Please do not push to other people's branches.
 
+Please do not push to main branch.
+
 ![image](https://github.com/user-attachments/assets/81ad0bd9-552a-44e2-a877-d3c6adb52d39)
